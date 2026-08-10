@@ -4,6 +4,7 @@ import hashlib
 import html
 import json
 import re
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Iterable
 
@@ -72,6 +73,7 @@ def export_offline_data() -> Path:
         + json.dumps(payload, ensure_ascii=False, separators=(",", ":"))
         + ";\n",
         encoding="utf-8",
+        newline="\n",
     )
     return OFFLINE_DATA_PATH
 
@@ -101,17 +103,15 @@ def sync_pkulaw_cases(risk_codes: Iterable[str] | None = None, limit_per_risk: i
                 raw = client.search_cases(fallback_query, mode="semantic", limit=limit_per_risk)
                 records = normalize_case_records(raw)
             for record in records[:limit_per_risk]:
+                evidence = _classify_case_risk(record, risk)
+                if not evidence:
+                    continue
                 record["risk_codes"] = sorted(set(record.get("risk_codes", []) + [risk["code"]]))
                 if not record.get("stage_ids"):
                     record["stage_ids"] = risk.get("stage_ids", [])[:2]
                 if not record.get("law_ids"):
                     record["law_ids"] = risk.get("law_ids", [])[:3]
-                cause_text = record.get("cause", "")
-                cause_hit = next((term for term in cause_terms if term and term in cause_text), "")
-                record.setdefault("tag_evidence", {})[risk["code"]] = {
-                    "signal": "案由命中" if cause_hit else "语义检索",
-                    "matched": cause_hit or (query_terms[0] if query_terms else ""),
-                }
+                record.setdefault("tag_evidence", {})[risk["code"]] = evidence
                 synced.append(record)
         except Exception as exc:  # keep partial results from other risk types
             errors.append({"risk_code": risk["code"], "message": str(exc)})
@@ -123,22 +123,47 @@ def sync_pkulaw_cases(risk_codes: Iterable[str] | None = None, limit_per_risk: i
         except (OSError, ValueError, TypeError):
             existing = []
     merged = _merge_cases(existing, synced)
-    from datetime import datetime, timezone
+    curated = _curate_cases(merged, taxonomy["risks"])
 
     synced_at = datetime.now(timezone.utc).isoformat()
     CACHE_PATH.write_text(
-        json.dumps({"synced_at": synced_at, "cases": merged}, ensure_ascii=False, indent=2),
+        json.dumps({"synced_at": synced_at, "cases": curated}, ensure_ascii=False, indent=2),
         encoding="utf-8",
+        newline="\n",
     )
     export_offline_data()
     return {
         "ok": bool(synced),
         "synced": len(synced),
-        "cached_total": len(merged),
+        "cached_total": len(curated),
+        "filtered_out": len(merged) - len(curated),
         "synced_at": synced_at,
         "errors": errors,
         "offline_updated": True,
     }
+
+
+def curate_pkulaw_cache() -> dict[str, int]:
+    """Re-apply the user-defined cause/body keyword rules to the local MCP cache."""
+    taxonomy = json.loads(SEED_PATH.read_text(encoding="utf-8"))
+    cached = json.loads(CACHE_PATH.read_text(encoding="utf-8")) if CACHE_PATH.exists() else {}
+    before = cached.get("cases", [])
+    after = _curate_cases(before, taxonomy.get("risks", []))
+    CACHE_PATH.write_text(
+        json.dumps(
+            {
+                "synced_at": cached.get("synced_at", ""),
+                "curated_at": datetime.now(timezone.utc).isoformat(),
+                "cases": after,
+            },
+            ensure_ascii=False,
+            indent=2,
+        ),
+        encoding="utf-8",
+        newline="\n",
+    )
+    export_offline_data()
+    return {"before": len(before), "after": len(after), "removed": len(before) - len(after)}
 
 
 def normalize_case_records(raw: Any) -> list[dict[str, Any]]:
@@ -238,6 +263,50 @@ def _merge_cases(base: list[dict[str, Any]], incoming: list[dict[str, Any]]) -> 
         else:
             merged[case_id] = item
     return list(merged.values())
+
+
+def _classify_case_risk(record: dict[str, Any], risk: dict[str, Any]) -> dict[str, str] | None:
+    """Return evidence only when a cause term or body/title query term actually occurs."""
+    title = str(record.get("name", ""))
+    cause_text = str(record.get("cause", ""))
+    summary = str(record.get("summary", ""))
+    cause_terms = [str(term) for term in risk.get("cause", []) if term]
+    query_terms = [str(term) for term in risk.get("query", []) if term]
+    cause_hit = next((term for term in cause_terms if term in cause_text or term in title), "")
+    if cause_hit:
+        return {"signal": "案由命中", "matched": cause_hit}
+    searchable = " ".join((title, cause_text, summary))
+    query_hit = next((term for term in query_terms if term in searchable), "")
+    if query_hit:
+        return {"signal": "正文命中", "matched": query_hit}
+    return None
+
+
+def _curate_cases(cases: list[dict[str, Any]], risks: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    risk_by_code = {risk["code"]: risk for risk in risks}
+    curated: list[dict[str, Any]] = []
+    for original in cases:
+        item = dict(original)
+        kept_codes: list[str] = []
+        evidence: dict[str, dict[str, str]] = {}
+        for code in item.get("risk_codes", []):
+            risk = risk_by_code.get(code)
+            match = _classify_case_risk(item, risk) if risk else None
+            if match:
+                kept_codes.append(code)
+                evidence[code] = match
+        if not kept_codes:
+            continue
+        item["risk_codes"] = sorted(set(kept_codes))
+        item["tag_evidence"] = evidence
+        item["stage_ids"] = sorted(
+            {stage_id for code in kept_codes for stage_id in risk_by_code[code].get("stage_ids", [])[:2]}
+        )
+        item["law_ids"] = sorted(
+            {law_id for code in kept_codes for law_id in risk_by_code[code].get("law_ids", [])[:3]}
+        )
+        curated.append(item)
+    return curated
 
 
 def _pick(item: dict[str, Any], *keys: str) -> str:

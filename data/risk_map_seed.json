@@ -2,7 +2,7 @@
   "meta": {
     "title": "科创企业风险知识地图",
     "version": "1.0.0",
-    "updated_at": "2026-08-10",
+    "updated_at": "2026-08-11",
     "mode": "offline-seed",
     "note": "离线种子包含公开典型案例与官方法源；配置北大法宝 MCP Token 后可增量同步真实裁判文书。"
   },
