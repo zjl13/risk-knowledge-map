@@ -2,6 +2,8 @@
 
 本目录是完全独立的知识图谱项目，不修改、不依赖 ComplianceAI 的页面、路由或 MCP 清单。后续确认需要集成时，再通过独立 API 对接现有系统。
 
+公开访问：[https://zjl13.github.io/risk-knowledge-map/](https://zjl13.github.io/risk-knowledge-map/)
+
 ## 最快使用方式
 
 ### 在线同步版
