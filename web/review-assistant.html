@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="协作者开发的风险智能审查助手入口。">
+  <meta name="theme-color" content="#f5f5f7">
+  <title>风险智能审查助手</title>
+  <style>
+    :root{color-scheme:light;--bg:#f5f5f7;--surface:rgba(255,255,255,.88);--ink:#1d1d1f;--muted:#6e6e73;--line:#e2e2e7;--accent:#6e5bd7;--soft:#f1efff;--shadow:0 18px 55px rgba(0,0,0,.09)}
+    @media(prefers-color-scheme:dark){:root{color-scheme:dark;--bg:#0b0c10;--surface:rgba(23,25,31,.9);--ink:#f5f5f7;--muted:#a1a1a8;--line:#30343d;--accent:#a99fff;--soft:#282442;--shadow:0 18px 55px rgba(0,0,0,.34)}}
+    *{box-sizing:border-box}html,body{min-height:100%;margin:0}body{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","PingFang SC","Microsoft YaHei",system-ui,sans-serif;background:radial-gradient(circle at 50% 0,color-mix(in srgb,var(--accent) 12%,transparent),transparent 42%),var(--bg);color:var(--ink);display:grid;place-items:center;padding:24px}.card{width:min(680px,100%);padding:clamp(28px,6vw,58px);border:1px solid var(--line);border-radius:28px;background:var(--surface);box-shadow:var(--shadow);backdrop-filter:blur(22px)}.brand{display:flex;align-items:center;gap:12px;margin-bottom:42px}.mark{width:44px;height:44px;border-radius:13px;background:var(--ink);color:var(--bg);display:grid;place-items:center}.mark svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}.brand b{font-size:15px}.badge{display:inline-flex;align-items:center;height:28px;padding:0 10px;border-radius:999px;background:var(--soft);color:var(--accent);font-size:11px;font-weight:750;margin-bottom:18px}h1{font-size:clamp(32px,7vw,52px);line-height:1.08;letter-spacing:-.035em;margin:0 0 20px}p{font-size:16px;line-height:1.8;color:var(--muted);margin:0;max-width:560px}.features{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:32px 0}.feature{min-height:82px;border:1px solid var(--line);border-radius:14px;padding:14px;background:color-mix(in srgb,var(--surface) 76%,transparent)}.feature b{display:block;font-size:13px;margin-bottom:6px}.feature span{font-size:12px;line-height:1.5;color:var(--muted)}.actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap}.btn{min-height:46px;padding:0 16px;border:1px solid var(--line);border-radius:12px;color:var(--ink);background:transparent;text-decoration:none;font-size:13px;font-weight:750;display:inline-flex;align-items:center;justify-content:center;transition:background .2s ease,transform .12s ease}.btn:hover{background:var(--soft)}.btn:active{transform:scale(.98)}.status{font-size:11px;color:var(--muted)}.status:before{content:"";display:inline-block;width:7px;height:7px;margin-right:7px;border-radius:50%;background:#ff9f0a}@media(max-width:600px){body{padding:12px}.card{border-radius:22px}.features{grid-template-columns:1fr}.brand{margin-bottom:32px}}@media(prefers-reduced-motion:reduce){.btn{transition:none}}
+  </style>
+</head>
+<body>
+  <main class="card">
+    <div class="brand"><span class="mark" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M9 3h6l1 3h3v15H5V6h3l1-3Z"></path><path d="M9 12l2 2 4-5M9 18h6"></path></svg></span><b>风险智能审查助手</b></div>
+    <span class="badge">协作者独立开发</span>
+    <h1>让风险审查更直观</h1>
+    <p>该助手将用于审查企业材料、识别潜在风险，并结合相关规则给出可核验的说明。正式访问地址部署完成后，知识地图中的入口会直接跳转至助手。</p>
+    <div class="features" aria-label="助手能力预览"><div class="feature"><b>材料审查</b><span>从企业材料中定位需要关注的内容。</span></div><div class="feature"><b>风险识别</b><span>按照风险类型整理问题与优先级。</span></div><div class="feature"><b>依据说明</b><span>展示相关规则与可继续核验的来源。</span></div></div>
+    <div class="actions"><a class="btn" href="index.html">返回风险知识地图</a><span class="status">正式地址正在接入</span></div>
+  </main>
+</body>
+</html>

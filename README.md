@@ -4,6 +4,8 @@
 
 公开访问：[https://zjl13.github.io/risk-knowledge-map/](https://zjl13.github.io/risk-knowledge-map/)
 
+页面顶部保留“风险智能审查助手”协作入口，当前指向 `web/review-assistant.html` 说明页。协作者完成独立部署后，只需修改 `web/index.html` 中的 `ASSISTANT_URL` 常量即可切换为正式地址。
+
 ## 最快使用方式
 
 ### 在线同步版
