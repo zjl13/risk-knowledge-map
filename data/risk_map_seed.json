@@ -1,0 +1,183 @@
+{
+  "meta": {
+    "title": "科创企业风险知识地图",
+    "version": "1.0.0",
+    "updated_at": "2026-08-10",
+    "mode": "offline-seed",
+    "note": "离线种子包含公开典型案例与官方法源；配置北大法宝 MCP Token 后可增量同步真实裁判文书。"
+  },
+  "stages": [
+    {"id": "STAGE-RND", "name": "技术研发", "order": 1, "description": "技术路线验证、研发协作、数据与算法准备。"},
+    {"id": "STAGE-START", "name": "创业设立", "order": 2, "description": "公司设立、核心团队组建与权属安排。"},
+    {"id": "STAGE-FIN", "name": "融资成长", "order": 3, "description": "天使轮至成长期融资、估值调整与股权安排。"},
+    {"id": "STAGE-COMM", "name": "商业化运营", "order": 4, "description": "产品上线、客户交付、市场推广与竞争。"},
+    {"id": "STAGE-SCALE", "name": "规模化治理", "order": 5, "description": "平台扩张、人员流动、监管审查与内部治理。"},
+    {"id": "STAGE-CROSS", "name": "跨境与退出", "order": 6, "description": "跨境经营、技术出口、并购重组与投资退出。"}
+  ],
+  "risks": [
+    {
+      "code": "RISK-TECH", "name": "技术风险", "origin": "内源", "color": "#2563eb",
+      "definition": "技术研发、委托开发、技术转让、产品质量等与技术本身有关的风险。",
+      "query": ["技术开发合同", "技术服务合同", "软件开发", "技术委托开发", "技术转让合同"],
+      "cause": ["技术开发合同纠纷", "技术服务合同纠纷", "技术委托开发合同纠纷", "技术转让合同纠纷", "计算机软件开发合同纠纷", "产品责任纠纷"],
+      "stage_ids": ["STAGE-RND", "STAGE-START", "STAGE-COMM"],
+      "law_ids": ["LAW-CIVIL-TECH", "LAW-PATENT-11", "LAW-COPY-52"]
+    },
+    {
+      "code": "RISK-DATA", "name": "数据风险", "origin": "内源", "color": "#0891b2",
+      "definition": "个人信息的收集使用、数据安全、隐私、网络爬取数据等风险。",
+      "query": ["个人信息保护", "数据安全", "隐私权", "网络爬取", "侵犯公民个人信息"],
+      "cause": ["侵犯公民个人信息罪", "个人信息保护", "隐私权纠纷", "网络侵权责任纠纷", "非法获取计算机信息系统数据罪"],
+      "stage_ids": ["STAGE-RND", "STAGE-COMM", "STAGE-SCALE", "STAGE-CROSS"],
+      "law_ids": ["LAW-CIVIL-PI", "LAW-PIPL-5", "LAW-PIPL-28", "LAW-PIPL-38", "LAW-PIPL-55", "LAW-DSL-27"]
+    },
+    {
+      "code": "RISK-ALGO", "name": "算法风险", "origin": "内源", "color": "#7c3aed",
+      "definition": "算法推荐、自动化决策、算法歧视（如“大数据杀熟”）等风险；专门判例较少，主要靠正文算法信号识别。",
+      "query": ["算法", "自动化决策", "算法歧视", "大数据杀熟", "算法推荐", "个性化推荐", "算法服务"],
+      "cause": ["算法", "自动化决策"],
+      "stage_ids": ["STAGE-RND", "STAGE-COMM", "STAGE-SCALE"],
+      "law_ids": ["LAW-PIPL-24", "LAW-ALGO-16", "LAW-AUCL-13"]
+    },
+    {
+      "code": "RISK-IP", "name": "知识产权风险", "origin": "内源", "color": "#4f46e5",
+      "definition": "专利、著作权、商标、商业秘密、职务发明等知识产权纠纷。",
+      "query": ["专利侵权", "专利权", "著作权", "商标侵权", "商业秘密", "职务发明"],
+      "cause": ["侵害发明专利权纠纷", "侵害实用新型专利权纠纷", "侵害外观设计专利权纠纷", "著作权权属侵权纠纷", "侵害商标权纠纷", "侵害商业秘密纠纷", "职务发明创造发明人报酬纠纷", "计算机软件著作权权属纠纷"],
+      "stage_ids": ["STAGE-RND", "STAGE-START", "STAGE-COMM", "STAGE-CROSS"],
+      "law_ids": ["LAW-PATENT-11", "LAW-COPY-52", "LAW-AUCL-10"]
+    },
+    {
+      "code": "RISK-HR", "name": "人力资本风险", "origin": "内源", "color": "#db2777",
+      "definition": "核心技术或高管人员流动相关：竞业限制、保密协议、股权激励、员工离职带走技术。",
+      "query": ["竞业限制", "竞业禁止", "保密协议", "股权激励", "股票期权", "高级管理人员离职"],
+      "cause": ["竞业限制纠纷", "劳动合同纠纷", "保密义务", "股权转让纠纷"],
+      "stage_ids": ["STAGE-START", "STAGE-FIN", "STAGE-SCALE"],
+      "law_ids": ["LAW-LABOR-23", "LAW-AUCL-10", "LAW-COMPANY-162"]
+    },
+    {
+      "code": "RISK-FIN", "name": "融资约束与金融风险", "origin": "外源", "color": "#d97706",
+      "definition": "融资阶段的风险：对赌协议、增资扩股、股权回购、抽逃出资、融资租赁等。",
+      "query": ["对赌协议", "估值调整", "增资扩股", "股权回购", "抽逃出资", "融资租赁"],
+      "cause": ["股权转让纠纷", "增资纠纷", "股权回购纠纷", "股东出资纠纷", "融资租赁合同纠纷", "对赌协议纠纷"],
+      "stage_ids": ["STAGE-START", "STAGE-FIN", "STAGE-CROSS"],
+      "law_ids": ["LAW-COMPANY-47", "LAW-COMPANY-162", "LAW-NINE-5"]
+    },
+    {
+      "code": "RISK-REG", "name": "制度与监管风险", "origin": "外源", "color": "#dc2626",
+      "definition": "被行政处罚、行政许可、监管审查、合规要求等与政府监管相关的风险。",
+      "query": ["行政处罚", "行政监管", "行政许可", "网络安全审查", "企业合规"],
+      "cause": ["行政处罚", "行政强制", "行政许可"],
+      "stage_ids": ["STAGE-START", "STAGE-COMM", "STAGE-SCALE", "STAGE-CROSS"],
+      "law_ids": ["LAW-ADMIN-32", "LAW-DSL-27", "LAW-PIPL-55", "LAW-ANTIMON-25"]
+    },
+    {
+      "code": "RISK-MKT", "name": "市场与竞争风险", "origin": "外源", "color": "#65a30d",
+      "definition": "不正当竞争、反垄断、滥用市场支配地位、商业诋毁等市场竞争类风险。",
+      "query": ["不正当竞争", "反垄断", "滥用市场支配地位", "商业诋毁", "垄断协议"],
+      "cause": ["不正当竞争纠纷", "垄断纠纷", "滥用市场支配地位纠纷", "商业诋毁纠纷"],
+      "stage_ids": ["STAGE-COMM", "STAGE-SCALE", "STAGE-CROSS"],
+      "law_ids": ["LAW-AUCL-12", "LAW-AUCL-13", "LAW-ANTIMON-25"]
+    },
+    {
+      "code": "RISK-GEO", "name": "地缘政治与跨境经营风险", "origin": "外源", "color": "#0f766e",
+      "definition": "出口管制、涉外经营、外资或中外合资、技术出口等跨境相关风险。",
+      "query": ["出口管制", "跨境", "涉外", "外资", "中外合资", "技术出口"],
+      "cause": ["涉外", "出口管制", "中外合资经营企业纠纷"],
+      "stage_ids": ["STAGE-FIN", "STAGE-SCALE", "STAGE-CROSS"],
+      "law_ids": ["LAW-PIPL-38", "LAW-EXPORT-12", "LAW-FOREIGN-28"]
+    }
+  ],
+  "laws": [
+    {"id": "LAW-CIVIL-TECH", "name": "民法典", "article": "第843—887条（技术合同）", "summary": "规范技术开发、转让、许可、咨询与服务合同。", "source_url": "https://www.gov.cn/xinwen/2020-06/01/content_5516649.htm"},
+    {"id": "LAW-CIVIL-PI", "name": "民法典", "article": "第1034—1039条（个人信息保护）", "summary": "明确个人信息处理与隐私权益保护规则。", "source_url": "https://www.gov.cn/xinwen/2020-06/01/content_5516649.htm"},
+    {"id": "LAW-PIPL-5", "name": "个人信息保护法", "article": "第5—7条", "summary": "合法、正当、必要、诚信和公开透明原则。", "source_url": "https://www.gov.cn/xinwen/2021-08/20/content_5632486.htm"},
+    {"id": "LAW-PIPL-24", "name": "个人信息保护法", "article": "第24条", "summary": "自动化决策应透明、公平、公正，不得实施不合理差别待遇。", "source_url": "https://www.gov.cn/xinwen/2021-08/20/content_5632486.htm"},
+    {"id": "LAW-PIPL-28", "name": "个人信息保护法", "article": "第28—30条", "summary": "敏感个人信息处理须具备特定目的、充分必要性与严格保护措施。", "source_url": "https://www.gov.cn/xinwen/2021-08/20/content_5632486.htm"},
+    {"id": "LAW-PIPL-38", "name": "个人信息保护法", "article": "第38—43条", "summary": "个人信息出境的条件、告知同意与境外接收方义务。", "source_url": "https://www.gov.cn/xinwen/2021-08/20/content_5632486.htm"},
+    {"id": "LAW-PIPL-55", "name": "个人信息保护法", "article": "第55—56条", "summary": "高风险处理活动应事前开展个人信息保护影响评估。", "source_url": "https://www.gov.cn/xinwen/2021-08/20/content_5632486.htm"},
+    {"id": "LAW-DSL-27", "name": "数据安全法", "article": "第27—30条", "summary": "建立全流程数据安全管理制度并开展风险监测与评估。", "source_url": "https://www.gov.cn/xinwen/2021-06/11/content_5616919.htm"},
+    {"id": "LAW-ALGO-16", "name": "互联网信息服务算法推荐管理规定", "article": "第16—22条", "summary": "算法透明、用户选择、未成年人和劳动者权益等治理要求。", "source_url": "https://www.cac.gov.cn/2022-01/04/c_1642894606364259.htm"},
+    {"id": "LAW-PATENT-11", "name": "专利法", "article": "第11条", "summary": "未经许可不得实施他人专利。", "source_url": "https://www.npc.gov.cn/npc/c2/c30834/202011/t20201119_308800.html"},
+    {"id": "LAW-COPY-52", "name": "著作权法", "article": "第52—54条", "summary": "列明侵权行为及停止侵害、赔偿损失等责任。", "source_url": "https://www.npc.gov.cn/npc/c2/c30834/202011/t20201111_308634.html"},
+    {"id": "LAW-AUCL-10", "name": "反不正当竞争法（2025修订）", "article": "第10条", "summary": "禁止以盗窃、电子侵入等不正当手段获取、披露或使用商业秘密。", "source_url": "https://www.npc.gov.cn/npc/c2/c30834/202506/t20250627_446247.html"},
+    {"id": "LAW-AUCL-12", "name": "反不正当竞争法（2025修订）", "article": "第12条", "summary": "禁止编造、传播虚假或误导性信息损害竞争对手商誉。", "source_url": "https://www.npc.gov.cn/npc/c2/c30834/202506/t20250627_446247.html"},
+    {"id": "LAW-AUCL-13", "name": "反不正当竞争法（2025修订）", "article": "第13条", "summary": "规制利用网络、数据、算法和平台规则实施的不正当竞争。", "source_url": "https://www.npc.gov.cn/npc/c2/c30834/202506/t20250627_446247.html"},
+    {"id": "LAW-LABOR-23", "name": "劳动合同法", "article": "第23—24条", "summary": "保密义务、竞业限制范围、期限与经济补偿。", "source_url": "https://www.gov.cn/flfg/2007-06/29/content_669394.htm"},
+    {"id": "LAW-COMPANY-47", "name": "公司法（2023修订）", "article": "第47条、第88条", "summary": "股东出资期限及未届期出资股权转让责任。", "source_url": "https://www.npc.gov.cn/npc/c2/c30834/202312/t20231229_433999.html"},
+    {"id": "LAW-COMPANY-162", "name": "公司法（2023修订）", "article": "第162条", "summary": "公司收购本公司股份的法定情形与程序。", "source_url": "https://www.npc.gov.cn/npc/c2/c30834/202312/t20231229_433999.html"},
+    {"id": "LAW-NINE-5", "name": "全国法院民商事审判工作会议纪要", "article": "第5条（对赌协议）", "summary": "区分协议效力与实际履行，兼顾资本维持和债权人保护。", "source_url": "https://www.court.gov.cn/zixun/xiangqing/199691.html"},
+    {"id": "LAW-ADMIN-32", "name": "行政处罚法", "article": "第32条", "summary": "从轻或减轻行政处罚的法定情形。", "source_url": "https://www.gov.cn/xinwen/2021-01/23/content_5582030.htm"},
+    {"id": "LAW-ANTIMON-25", "name": "反垄断法", "article": "第25—35条（经营者集中）", "summary": "经营者集中申报、审查与禁止规则。", "source_url": "https://www.gov.cn/xinwen/2022-06/24/content_5697573.htm"},
+    {"id": "LAW-EXPORT-12", "name": "出口管制法", "article": "第12—14条", "summary": "管制物项出口许可、最终用户和最终用途证明。", "source_url": "https://www.npc.gov.cn/npc/c2/c30834/202010/t20201017_308279.html"},
+    {"id": "LAW-FOREIGN-28", "name": "外商投资法", "article": "第28条", "summary": "外商投资准入前国民待遇加负面清单制度。", "source_url": "https://www.gov.cn/xinwen/2019-03/20/content_5375360.htm"}
+  ],
+  "cases": [
+    {
+      "id": "CASE-FACE", "name": "郭兵诉杭州野生动物世界服务合同纠纷案", "case_no": "人脸识别第一案", "year": "2021", "court": "杭州市中级人民法院", "kind": "裁判案例",
+      "summary": "经营者将指纹入园改为人脸识别，法院判令删除面部特征和指纹信息并赔偿合同利益损失。",
+      "risk_codes": ["RISK-DATA", "RISK-REG"], "stage_ids": ["STAGE-COMM", "STAGE-SCALE"], "law_ids": ["LAW-CIVIL-PI", "LAW-PIPL-28"],
+      "source_url": "https://www.court.gov.cn/zixun/xiangqing/329801.html", "source_provider": "最高人民法院"
+    },
+    {
+      "id": "CASE-ALGO-SECRET", "name": "智能检索算法侵害商业秘密案", "case_no": "（2021）粤03民初3843号", "year": "2021", "court": "深圳市中级人民法院", "kind": "裁判案例",
+      "summary": "智能检索算法具备非公知性、商业价值并采取保密措施时，可作为商业秘密保护。",
+      "risk_codes": ["RISK-ALGO", "RISK-IP", "RISK-HR"], "stage_ids": ["STAGE-RND", "STAGE-SCALE"], "law_ids": ["LAW-AUCL-10", "LAW-LABOR-23"],
+      "source_url": "https://ipc.court.gov.cn/zh-cn/news/view-3827.html", "source_provider": "最高人民法院知识产权法庭"
+    },
+    {
+      "id": "CASE-DRAGON", "name": "“龙某世界”项目代码侵害技术秘密案", "case_no": "（2023）最高法知民终539号", "year": "2023", "court": "最高人民法院", "kind": "裁判案例",
+      "summary": "核心员工离职前私自下载源代码并带离经营场所，与新公司共同侵害技术秘密。",
+      "risk_codes": ["RISK-TECH", "RISK-IP", "RISK-HR"], "stage_ids": ["STAGE-RND", "STAGE-SCALE"], "law_ids": ["LAW-AUCL-10", "LAW-LABOR-23", "LAW-COPY-52"],
+      "source_url": "https://ipc.court.gov.cn/zh-cn/news/view-3827.html", "source_provider": "最高人民法院知识产权法庭"
+    },
+    {
+      "id": "CASE-POACH", "name": "科某公司与追某公司恶意“挖角”案", "case_no": "（2025）苏05民终1693号", "year": "2025", "court": "苏州市中级人民法院", "kind": "裁判案例",
+      "summary": "竞争者招募对方多名技术高管并帮助规避竞业限制，被纳入不正当竞争与人才流动边界审查。",
+      "risk_codes": ["RISK-HR", "RISK-MKT", "RISK-IP"], "stage_ids": ["STAGE-SCALE"], "law_ids": ["LAW-LABOR-23", "LAW-AUCL-10", "LAW-AUCL-13"],
+      "source_url": "https://ipc.court.gov.cn/zh-cn/news/view-5630.html", "source_provider": "最高人民法院知识产权法庭"
+    },
+    {
+      "id": "CASE-VANILLIN", "name": "香兰素技术秘密高额赔偿案", "case_no": "（2020）最高法知民终1667号", "year": "2021", "court": "最高人民法院", "kind": "裁判案例",
+      "summary": "法院综合侵权规模、商业价值和拒不执行行为保全等因素判赔1.59亿元。",
+      "risk_codes": ["RISK-IP", "RISK-MKT", "RISK-HR"], "stage_ids": ["STAGE-RND", "STAGE-COMM", "STAGE-SCALE"], "law_ids": ["LAW-AUCL-10"],
+      "source_url": "https://ipc.court.gov.cn/zh-cn/news/view-1065.html", "source_provider": "最高人民法院知识产权法庭"
+    },
+    {
+      "id": "CASE-HUAWEI", "name": "华为诉康文森标准必要专利许可纠纷案", "case_no": "（2019）最高法知民终732、733、734号之一", "year": "2020", "court": "最高人民法院", "kind": "裁判案例",
+      "summary": "中国知识产权领域首个“禁诉令”性质行为保全裁定，涉及国际平行诉讼与标准必要专利许可。",
+      "risk_codes": ["RISK-IP", "RISK-GEO", "RISK-MKT"], "stage_ids": ["STAGE-COMM", "STAGE-CROSS"], "law_ids": ["LAW-PATENT-11", "LAW-ANTIMON-25"],
+      "source_url": "https://gongbao.court.gov.cn/Details/5555e9be08ce2e65fb6c560368abdc.html", "source_provider": "最高人民法院公报"
+    },
+    {
+      "id": "CASE-HAIFU", "name": "海富投资诉甘肃世恒增资纠纷案", "case_no": "（2012）民提字第11号", "year": "2012", "court": "最高人民法院", "kind": "裁判案例",
+      "summary": "对赌条款须区分目标公司与股东责任，兼顾公司利益、债权人保护与意思自治。",
+      "risk_codes": ["RISK-FIN", "RISK-GEO"], "stage_ids": ["STAGE-FIN", "STAGE-CROSS"], "law_ids": ["LAW-COMPANY-47", "LAW-NINE-5"],
+      "source_url": "https://gongbao.court.gov.cn/Details/0e07feeb9a41c731e3730b9a4555f4.html", "source_provider": "最高人民法院公报"
+    },
+    {
+      "id": "CASE-HUYADOUYU", "name": "虎牙与斗鱼合并反垄断审查案", "case_no": "平台经济禁止经营者集中第一案", "year": "2021", "court": "国家市场监督管理总局", "kind": "监管案例",
+      "summary": "集中可能对游戏直播及网络游戏运营服务市场产生排除、限制竞争效果，依法被禁止。",
+      "risk_codes": ["RISK-MKT", "RISK-REG", "RISK-FIN"], "stage_ids": ["STAGE-SCALE", "STAGE-CROSS"], "law_ids": ["LAW-ANTIMON-25"],
+      "source_url": "https://www.samr.gov.cn/fldes/tzgg/ftj/art/2023/art_47b307e668484e83a598add8793dcdca.html", "source_provider": "国家市场监督管理总局"
+    },
+    {
+      "id": "CASE-DIDI", "name": "滴滴网络安全审查行政处罚案", "case_no": "网信办行政处罚决定", "year": "2022", "court": "国家互联网信息办公室", "kind": "监管案例",
+      "summary": "因严重违反网络安全法、数据安全法、个人信息保护法等，被处80.26亿元罚款。",
+      "risk_codes": ["RISK-DATA", "RISK-REG", "RISK-GEO"], "stage_ids": ["STAGE-SCALE", "STAGE-CROSS"], "law_ids": ["LAW-DSL-27", "LAW-PIPL-5", "LAW-PIPL-38", "LAW-ADMIN-32"],
+      "source_url": "https://www.cac.gov.cn/2022-07/21/c_1660021534306352.htm", "source_provider": "国家互联网信息办公室"
+    },
+    {
+      "id": "CASE-GAME-LEAK", "name": "游戏内测内容商业秘密行为保全案", "case_no": "2024年知识产权典型案例", "year": "2024", "court": "人民法院", "kind": "裁判案例",
+      "summary": "内测玩家违反保密协议偷拍、偷录并披露未公开角色和技能数据，法院及时采取行为保全。",
+      "risk_codes": ["RISK-IP", "RISK-TECH"], "stage_ids": ["STAGE-RND", "STAGE-COMM"], "law_ids": ["LAW-AUCL-10", "LAW-COPY-52"],
+      "source_url": "https://ipc.court.gov.cn/zh-cn/news/view-4205.html", "source_provider": "最高人民法院知识产权法庭"
+    },
+    {
+      "id": "CASE-AI-SYNTH", "name": "生成合成类算法著作权纠纷案", "case_no": "2024年知识产权典型案例", "year": "2024", "court": "人民法院", "kind": "裁判案例",
+      "summary": "案件聚焦使用人工智能对他人作品进行局部合成的行为性质，引导企业审查素材来源和生成内容。",
+      "risk_codes": ["RISK-ALGO", "RISK-IP", "RISK-TECH"], "stage_ids": ["STAGE-RND", "STAGE-COMM"], "law_ids": ["LAW-COPY-52", "LAW-ALGO-16"],
+      "source_url": "https://ipc.court.gov.cn/zh-cn/news/view-4205.html", "source_provider": "最高人民法院知识产权法庭"
+    }
+  ]
+}
